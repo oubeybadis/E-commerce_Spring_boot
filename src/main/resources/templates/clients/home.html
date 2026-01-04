@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::content})}">
+
+<body>
+    <div th:fragment="content">
+        <div th:if="${themeSetting != null}" th:replace="~{fragments/theme-landing :: theme-landing}"></div>
+        <p dir="rtl" id="header-title"
+            class="md:mt-28 mt-8 text-center text-4xl font-bold text-gray-700 dark:text-white">
+            إختر المنتج المناسب لك !
+        </p>
+        <div class="flex flex-col justify-center md:items-start items-center md:px-2 py-12 md:grid md:grid-cols-3 md:gap-4 gap-8"
+            dir="rtl">
+            <div th:each="product : ${products}"
+                class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-xl w-[70%] md:w-full md:h-full dark:shadow-slate-500 dark:bg-gray-800 dark:border-gray-700">
+                <a th:href="@{/products/{id}(id=${product.id})}" class="flex">
+                    <img class="w-full h-auto md:h-60 object-cover p-6 md:p-8 rounded-t-lg m-auto"
+                        th:src="${product.mainImage != null ? '/storage/' + product.mainImage.imageUrl : (product.images != null && !product.images.isEmpty() ? '/storage/' + product.images[0].imageUrl : '/imgs/placeholder.png')}"
+                        alt="product image" 
+                        onerror="this.src='/imgs/placeholder.png'" />
+                </a>
+                <div class="md:px-5 p-3 md:pb-5">
+                    <a href="#">
+                        <h5
+                            class="md:text-xl text-lg hover:underline font-semibold tracking-tight text-gray-900 dark:text-white"
+                            th:text="${product.name}">
+                        </h5>
+                    </a>
+                    <div th:if="${product.colors == null || product.colors.isEmpty()} && ${product.sizes == null || product.sizes.isEmpty()}"
+                        class="flex items-center mt-2.5 mb-2.5">
+                        <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 22 20">
+                                <path
+                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 22 20">
+                                <path
+                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 22 20">
+                                <path
+                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 22 20">
+                                <path
+                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path
+                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                        </div>
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
+                    </div>
+                    <div th:if="${product.colors != null && !product.colors.isEmpty()} || ${product.sizes != null && !product.sizes.isEmpty()}"
+                        class="grid grid-cols-2 mt-2.5 mb-2.5">
+                        <div th:if="${product.colors != null && !product.colors.isEmpty()}" class="flex gap-1 flex-wrap">
+                            <span th:each="color : ${product.colors}" 
+                                  class="flex w-3 h-3 md:w-4 md:h-4 rounded-full border border-black"
+                                  th:style="'background-color: ' + ${color.hexCode} + ';'"></span>
+                        </div>
+                        <div th:if="${product.sizes != null && !product.sizes.isEmpty()}" class="flex gap-1 flex-wrap" dir="ltr">
+                            <span th:each="size : ${product.sizes}"
+                                class="bg-blue-100 text-blue-800 text-xs font-medium md:font-semibold px-1 md:px-2.5 md:py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 uppercase"
+                                th:text="${size.name}"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 text-sm text-gray-400">
+                        <span class="flex gap-1 items-center">
+                            <svg class="w-4 h-4 md:w-5 md:h-5 text-gray-400 font-light" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                            </svg>
+                            <span class="font-medium text-xs md:text-sm md:font-semibold">أفضل بائع</span>
+                        </span>
+                        <span class="flex gap-1 items-center">
+                            <svg class="w-4 h-4 md:w-5 md:h-5 text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m7.171 12.906-2.153 6.411 2.672-.89 1.568 2.34 1.825-5.183m5.73-2.678 2.154 6.411-2.673-.89-1.568 2.34-1.825-5.183M9.165 4.3c.58.068 1.153-.17 1.515-.628a1.681 1.681 0 0 1 2.64 0 1.68 1.68 0 0 0 1.515.628 1.681 1.681 0 0 1 1.866 1.866c-.068.58.17 1.154.628 1.516a1.681 1.681 0 0 1 0 2.639 1.682 1.682 0 0 0-.628 1.515 1.681 1.681 0 0 1-1.866 1.866 1.681 1.681 0 0 0-1.516.628 1.681 1.681 0 0 1-2.639 0 1.681 1.681 0 0 0-1.515-.628 1.681 1.681 0 0 1-1.867-1.866 1.681 1.681 0 0 0-.627-1.515 1.681 1.681 0 0 1 0-2.64c.458-.361.696-.935.627-1.515A1.681 1.681 0 0 1 9.165 4.3ZM14 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
+                            </svg>
+                            <span class="font-medium text-xs md:text-sm md:font-semibold">أفضل سعر</span>
+                        </span>
+                    </div>
+                    <div class="flex flex-row-reverse items-center justify-between mt-4">
+                        <span class="text-2xl font-bold text-gray-900 dark:text-white" th:text="${product.price} + 'DA'"></span>
+                        <a th:href="@{/products/{id}(id=${product.id})}"
+                            th:style="'background-color: ' + ${themeSetting != null ? themeSetting.primaryColor : '#03aec9'} + ';'"
+                            class="flex gap-2 items-center text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md md:rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 text-center dark:hover:bg-[#0195ab] dark:focus:ring-blue-800">
+                            اشتري الآن
+                            <svg class="w-4 h-4 md:w-6 md:h-6 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const title = document.getElementById('landing-title');
+                if (title) {
+                    const text = " مرحبًا بكم في متجرنا";
+                    let index = 0;
+
+                    function typeEffect() {
+                        if (index < text.length) {
+                            title.textContent += text.charAt(index);
+                            index++;
+                            setTimeout(typeEffect, 70);
+                        }
+                    }
+
+                    title.textContent = '';
+                    typeEffect();
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
+

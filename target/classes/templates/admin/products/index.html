@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin-base :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="p-4 flex flex-col md:flex-row justify-between gap-4">
+            <div class="flex gap-4 items-center">
+                <a th:href="@{/admin/products/create}"
+                    class="text-white flex justify-center items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm pr-4 py-2 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    إضافة منتج
+                    <svg class="w-6 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14m-7 7V5" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div th:if="${success}" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <span class="font-medium" th:text="${success}"></span>
+        </div>
+        <div th:if="${error}" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <span class="font-medium" th:text="${error}"></span>
+        </div>
+
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mb-20">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">اسم المنتج</th>
+                    <th scope="col" class="px-6 py-3">الفئة</th>
+                    <th scope="col" class="px-6 py-3">اللون</th>
+                    <th scope="col" class="px-6 py-3">الحجم</th>
+                    <th scope="col" class="px-6 py-3">السعر</th>
+                    <th scope="col" class="px-6 py-3 text-center">إجراء</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product, iterStat : ${products}"
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex gap-3 items-center">
+                        <img th:if="${product.mainImage != null}" 
+                             th:src="@{'/storage/' + ${product.mainImage.imageUrl}}"
+                             class="w-10 h-10 rounded-lg" alt="Product image" 
+                             onerror="this.src='/imgs/placeholder.png'" />
+                        <img th:if="${product.mainImage == null && product.images != null && !product.images.isEmpty()}" 
+                             th:src="@{'/storage/' + ${product.images[0].imageUrl}}"
+                             class="w-10 h-10 rounded-lg" alt="Product image" 
+                             onerror="this.src='/imgs/placeholder.png'" />
+                        <span th:text="${product.name}"></span>
+                    </th>
+                    <td class="px-6 py-4">
+                        <span th:if="${product.category != null}"
+                            class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
+                            th:text="${product.category.name}">
+                        </span>
+                    </td>
+                    <td class="px-6 py-0">
+                        <div class="flex gap-1">
+                            <span th:if="${product.colors != null && !product.colors.isEmpty()}"
+                                th:each="color : ${product.colors}"
+                                class="w-4 h-4 rounded-full border border-black"
+                                th:style="'background-color: ' + ${color.hexCode} + ';'">
+                            </span>
+                            <span th:if="${product.colors == null || product.colors.isEmpty()}">/</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex gap-1">
+                            <span th:if="${product.sizes != null && !product.sizes.isEmpty()}"
+                                th:each="size : ${product.sizes}"
+                                class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+                                th:text="${size.name}">
+                            </span>
+                            <span th:if="${product.sizes == null || product.sizes.isEmpty()}">/</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4" th:text="${product.price} + ' دج'"></td>
+                    <td class="px-6 py-4">
+                        <div class="flex gap-2">
+                            <a th:href="@{/admin/products/{id}/edit(id=${product.id})}"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">تعديل</a>
+                            <form th:action="@{/admin/products/{id}(id=${product.id})}" method="post" style="display: inline;">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" class="font-medium text-red-500 dark:text-red-500 hover:underline">حذف</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+

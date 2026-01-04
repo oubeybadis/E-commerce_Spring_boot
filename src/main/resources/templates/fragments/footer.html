@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <footer th:fragment="footer" class="bg-white dark:bg-gray-800 mt-8">
+        <div class="mx-auto w-full px-4 md:px-16 py-12 lg:py-16">
+            
+            <hr th:style="'border: 1px solid ' + ${themeSetting != null ? themeSetting.primaryColor : '#03aec9'} + ';'"
+                class="my-6 sm:mx-auto dark:border-[#00c8e9] lg:my-8" />
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8" dir="rtl">
+                
+                <!-- Brand Section -->
+                <div class="flex flex-col items-start space-y-4">
+                    <a th:href="@{/}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <img class="h-12" 
+                             th:src="${themeSetting != null && themeSetting.logo != null && themeSetting.logo != '' ? '/storage/' + themeSetting.logo : '/imgs/logo.png'}"
+                             alt="Site Logo"
+                             onerror="this.src='/imgs/logo.png'" />
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-xs">
+                        متجر إلكتروني متخصص في بيع أفضل المنتجات والخدمات بجودة عالية وأسعار تنافسية.
+                    </p>
+                    <!-- Social Links -->
+                    <div class="flex gap-4 pt-2">
+                        <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20v-7.21H5.5V9.25h2.79V7.44c0-2.77 1.69-4.28 4.16-4.28 1.18 0 2.2.09 2.49.13v2.88h-1.71c-1.34 0-1.6.64-1.6 1.57v2.06h3.2l-.41 3.54h-2.79V20"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 002.856-3.915 10 10 0 01-2.837.856 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links Section 1 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6 text-gray-900 dark:text-white">الفئات</h3>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">الملابس</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">الإكسسوارات</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">الأحذية</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">العروض الخاصة</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Links Section 2 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6 text-gray-900 dark:text-white">المساعدة</h3>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">تتبع الطلب</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">سياسة الإرجاع</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">الشحن والتوصيل</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Links Section 3 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6 text-gray-900 dark:text-white">قانونية</h3>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">سياسة الخصوصية</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">شروط الاستخدام</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">سياسة ملفات تعريف الارتباط</a></li>
+                        <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition font-medium">اتصل بنا</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div th:style="'border-top: 2px solid ' + ${themeSetting != null ? themeSetting.primaryColor : '#03aec9'} + ';'" class="py-8 mb-8">
+                <div class="max-w-md mx-0" dir="rtl">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-900 dark:text-white">اشترك في النشرة البريدية</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">احصل على أحدث العروض والمنتجات الجديدة مباشرة إلى بريدك الإلكتروني.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="البريد الإلكتروني" class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2">
+                        <button th:style="'background-color: ' + ${themeSetting != null ? themeSetting.primaryColor : '#03aec9'} + ';'" class="text-white px-6 py-2 rounded-lg hover:opacity-90 transition font-semibold">اشترك</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Footer -->
+            <div th:style="'border-top: 1px solid ' + ${themeSetting != null ? themeSetting.primaryColor : '#03aec9'} + ';'" class="pt-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4" dir="rtl">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">
+                        © 2024-2025 <span th:style="'color: ' + ${themeSetting != null ? themeSetting.primaryColor : '#03aec9'} + ';'" class="font-semibold">Oubey-Badis</span> متجر إلكتروني. جميع الحقوق محفوظة.
+                    </span>
+                    
+                    <!-- Payment Methods -->
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-500 dark:text-gray-500 uppercase font-semibold">طرق الدفع:</span>
+                        <div class="flex gap-2">
+                            <div class="w-10 h-6 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-xs font-bold text-gray-400">VISA</div>
+                            <div class="w-10 h-6 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-xs font-bold text-gray-400">MC</div>
+                            <div class="w-10 h-6 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-xs font-bold text-gray-400">CIB</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+

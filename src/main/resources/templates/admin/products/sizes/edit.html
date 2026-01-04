@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin-base :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="container flex flex-col gap-4">
+            <h1 class="text-xl font-bold text-gray-600 dark:text-white">تعديل الحجم</h1>
+            <hr>
+
+            <div th:if="${error}" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium" th:text="${error}"></span>
+            </div>
+
+            <form th:action="@{/admin/products/sizes/{id}(id=${size.id})}" method="POST">
+                <input type="hidden" name="_method" value="PUT" />
+                <div>
+                    <input type="text" id="name" name="name" th:value="${size.name}" placeholder="اسم الحجم"
+                        class="bg-gray-50 w-40 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required />
+                </div>
+
+                <button type="submit"
+                    class="text-white mt-4 w-[40%] flex justify-center items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm pr-4 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <svg class="w-6 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14m-7 7V5" />
+                    </svg>
+                    تعديل الحجم
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

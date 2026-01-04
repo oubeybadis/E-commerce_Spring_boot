@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin-base :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="flex flex-col md:w-[40%] mx-auto p-6">
+            <h1 class="text-2xl font-bold text-gray-600 dark:text-white">إعدادات المتجر</h1>
+            <br><hr>
+
+            <div th:if="${success}" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <span class="font-medium" th:text="${success}"></span>
+            </div>
+            <div th:if="${error}" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium" th:text="${error}"></span>
+            </div>
+
+            <form th:action="@{/admin/themes/{id}(id=${themeSetting.id})}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <input type="hidden" name="_method" value="PUT" />
+
+                <!-- Logo Section -->
+                <div class="p-6 border border-gray-200 rounded-lg shadow-md flex flex-col justify-center items-center">
+                    <label for="logo" class="block text-sm font-medium text-gray-700 mb-8 dark:text-white">شعار المتجر</label>
+                    <input type="file" id="logo" name="logo" accept="image/*"
+                        class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4">
+                    <div th:if="${themeSetting.logo != null && !themeSetting.logo.isEmpty()}" class="mt-4">
+                        <img th:src="@{'/storage/' + ${themeSetting.logo}}" alt="Logo"
+                            class="max-w-xs rounded-lg shadow-md"
+                            onerror="this.src='/imgs/logo.png'" />
+                    </div>
+                </div>
+
+                <!-- Landing Image Section -->
+                <div class="p-6 border border-gray-200 rounded-lg shadow-md flex flex-col justify-center items-center">
+                    <label for="landing" class="block text-sm font-medium text-gray-700 mb-8 dark:text-white">الصورة الأساسية للصفحة</label>
+                    <input type="file" id="landing" name="landing" accept="image/*"
+                        class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4">
+                    <div th:if="${themeSetting.landing != null && !themeSetting.landing.isEmpty()}" class="mt-4">
+                        <img th:src="@{'/storage/' + ${themeSetting.landing}}" alt="Landing"
+                            class="max-w-xs rounded-lg shadow-md"
+                            onerror="this.src='/imgs/landing.jpg'" />
+                    </div>
+                </div>
+
+                <!-- Primary Color Section -->
+                <div class="p-6 border border-gray-200 rounded-lg shadow-md">
+                    <label for="primary_color" class="block text-sm font-medium text-gray-700 mb-2 dark:text-white">اللون الأساسي</label>
+                    <input type="color" id="primary_color" name="primary_color" 
+                        th:value="${themeSetting.primaryColor != null ? themeSetting.primaryColor : '#03aec9'}"
+                        class="w-full h-10 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" 
+                    th:style="'background-color: ' + ${themeSetting.primaryColor != null ? themeSetting.primaryColor : '#03aec9'} + ';'"
+                    class="text-white px-4 py-2 rounded-lg hover:opacity-90 focus:ring-4 focus:ring-blue-300 focus:outline-none">
+                    احفظ الإعدادات
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

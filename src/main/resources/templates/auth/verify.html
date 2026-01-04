@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/auth-base :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="w-full max-w-md">
+            <div class="bg-white shadow-md rounded-lg px-8 pt-10 pb-10 mb-4 dark:bg-gray-800 dark:text-white">
+                        <div class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">
+                            التحقق من عنوان بريدك الإلكتروني
+                        </div>
+
+                        <div class="mb-4 text-sm text-gray-600 dark:text-gray-300">
+                            <div th:if="${resent != null}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 dark:bg-green-200 dark:text-green-900" role="alert">
+                                تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.
+                            </div>
+
+                            Before proceeding, please check your email for a verification link.
+                            <br>
+                            إذا لم تتلق البريد الإلكتروني,
+                        </div>
+
+                        <form method="POST" th:action="@{/email/verification-notification}">
+                            <button type="submit" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">
+                                انقر هنا لطلب آخر
+                            </button>
+                        </form>
+                    </div>
+        </div>
+    </div>
+</body>
+</html>
+

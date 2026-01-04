@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin-base :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="container">
+            <h1 class="text-2xl font-bold text-gray-600 dark:text-white">أضف لونًا جديدًا</h1><br>
+            <hr>
+
+            <div th:if="${error}" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium" th:text="${error}"></span>
+            </div>
+
+            <form th:action="@{/admin/products/colors/create}" method="POST">
+                <div class="my-5">
+                    <label for="hex_code" class="block text-sm font-medium text-gray-900 dark:text-gray-200">اختيار اللون</label>
+                    <input type="color" id="hex_code" name="hex_code" value="#000000"
+                        class="w-20 h-10 mt-2 p-1 border border-gray-300 rounded-lg dark:border-gray-600" required />
+                </div>
+
+                <div class="my-5">
+                    <label for="name" class="block text-sm font-medium text-gray-900 dark:text-gray-200 mb-2">إسم اللون</label>
+                    <input type="text" id="name" name="name" placeholder="أدخل اسم اللون"
+                        class="bg-gray-50 w-40 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                </div>
+
+                <div class="mb-5">
+                    <button type="submit"
+                        class="text-white mt-4 w-[40%] flex justify-center items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm pr-4 py-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        إضافة
+                        <svg class="w-6 h-4 mr-2 text-white dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14m-7 7V5" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

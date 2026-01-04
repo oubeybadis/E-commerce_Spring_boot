@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin-base :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="container flex flex-col gap-4">
+            <h1 class="text-xl font-bold text-gray-600 dark:text-white">الفئات</h1>
+            <hr>
+            <a th:href="@{/admin/categories/create}"
+                class="inline-flex justify-center md:w-[30%] items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                أضف فئة
+                <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7 7V5" />
+                </svg>
+            </a>
+
+            <div th:if="${success}" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <span class="font-medium" th:text="${success}"></span>
+            </div>
+            <div th:if="${error}" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium" th:text="${error}"></span>
+            </div>
+
+            <div class="sm:rounded-lg">
+                <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="text-center px-6 py-3">اسم الفئة</th>
+                            <th scope="col" class="text-center px-6 py-3">إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="category : ${categories}"
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                th:text="${category.name}">
+                            </th>
+                            <td class="flex gap-4 px-6 py-4 text-right">
+                                <a th:href="@{/admin/categories/{id}/edit(id=${category.id})}"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">تعديل</a>
+                                <form th:action="@{/admin/categories/{id}(id=${category.id})}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit"
+                                        class="font-medium text-red-500 dark:text-blue-500 hover:underline">حذف</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

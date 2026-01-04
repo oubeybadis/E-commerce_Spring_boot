@@ -1,0 +1,22 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="theme-landing">
+    <div class="relative h-screen bg-cover bg-center overflow-hidden">
+        <!-- Landing Image -->
+        <img class="absolute inset-0 w-full h-full object-cover"
+             th:src="${themeSetting != null && themeSetting.landing != null && themeSetting.landing != '' ? '/storage/' + themeSetting.landing : '/imgs/landing.jpg'}"
+             alt="Landing Image"
+             onerror="this.src='/imgs/landing.jpg'" />
+        
+        <!-- Overlay (optional for darkening the image) -->
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+
+        <!-- Content in front of the image -->
+        <div class="relative z-10 flex flex-col items-center justify-center h-full text-center">
+            <h1 id="landing-title" class="text-white text-4xl sm:text-6xl font-bold mb-4">مرحبًا بكم في متجرنا</h1>
+            <p class="text-white text-lg sm:text-2xl mb-6">اكتشف أفضل المنتجات والصفقات</p>
+            <a href="#header-title" class="bg-white bg-opacity-80 text-black px-6 py-3 rounded-lg text-lg font-semibold hover:bg-gray-200 transition duration-300">
+                تسوق الآن
+            </a>
+        </div>
+    </div>
+</div>
+

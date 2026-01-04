@@ -1,0 +1,7 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="theme-logo">
+    <img class="md:h-14 h-14 left-4" 
+         th:src="${themeSetting != null && themeSetting.logo != null && themeSetting.logo != '' ? '/storage/' + themeSetting.logo : '/imgs/logo.png'}"
+         alt="Site Logo"
+         onerror="this.src='/imgs/logo.png'">
+</div>
+

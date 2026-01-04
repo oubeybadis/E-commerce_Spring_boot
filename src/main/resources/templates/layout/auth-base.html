@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="scroll-smooth" lang="ar" dir="rtl" th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script th:inline="javascript">
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.9.1/dist/cdn.min.js" defer></script>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link th:href="@{/css/app.css}" rel="stylesheet">
+    
+    <script th:inline="javascript">
+        window.themeSettings = {
+            primaryColor: /*[[${themeSetting != null ? themeSetting.primaryColor : '#03aec9'}]]*/ '#03aec9'
+        };
+    </script>
+    
+    <title th:text="${title != null ? title : 'Authentication'}">Authentication</title>
+</head>
+
+<body class="dark:bg-gray-900">
+    <div th:replace="~{fragments/header :: header}"></div>
+    <div th:replace="~{fragments/messages :: messages}"></div>
+
+    <main class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div th:insert="${content}"></div>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{/js/app.js}"></script>
+    <div th:if="${themeSetting != null}" th:replace="~{fragments/theme-color :: theme-color}"></div>
+</body>
+</html>
+
