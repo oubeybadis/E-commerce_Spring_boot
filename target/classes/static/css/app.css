@@ -2,3 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Sidebar transition fix */
+#logo-sidebar {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    will-change: transform;
+}
+
+#logo-sidebar.-translate-x-full {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#logo-sidebar:not(.-translate-x-full) {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Ensure buttons in sidebar are always clickable */
+#logo-sidebar button {
+    pointer-events: auto;
+    position: relative;
+    z-index: 10;
+}
+
+#logo-sidebar a {
+    pointer-events: auto;
+}
+

@@ -1,3 +1,25 @@
+// Global function to toggle dropdowns
+function toggleDropdown(dropdownId) {
+    console.log('toggleDropdown called for:', dropdownId);
+    const dropdown = document.getElementById(dropdownId);
+    
+    if (dropdown) {
+        dropdown.classList.toggle('hidden');
+        console.log('Dropdown now:', dropdown.classList.contains('hidden') ? 'HIDDEN' : 'VISIBLE');
+        
+        // Find the button and rotate its arrow
+        const button = document.querySelector(`[aria-controls="${dropdownId}"]`);
+        if (button) {
+            const arrow = button.querySelector('.arrow-icon');
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+    } else {
+        console.error('Dropdown element not found:', dropdownId);
+    }
+}
+
 // Theme toggle functionality
 var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
@@ -39,41 +61,40 @@ if (themeToggleBtn) {
     });
 }
 
-// Sidebar drawer toggle functionality
+// Close sidebar when a link is clicked
 document.addEventListener('DOMContentLoaded', function() {
-    const drawerToggle = document.querySelector('[data-drawer-toggle="logo-sidebar"]');
-    const drawer = document.getElementById('logo-sidebar');
-    const dropdownToggles = document.querySelectorAll('[data-collapse-toggle]');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebarLinks = document.querySelectorAll('#logo-sidebar a');
     
-    // Handle sidebar toggle
-    if (drawerToggle && drawer) {
-        drawerToggle.addEventListener('click', function() {
-            drawer.classList.toggle('-translate-x-full');
-        });
-    }
-    
-    // Handle dropdown toggles in sidebar
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            const targetId = this.getAttribute('aria-controls');
-            const target = document.getElementById(targetId);
-            if (target) {
-                target.classList.toggle('hidden');
+    // Close sidebar when clicking a link
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (sidebarToggle) {
+                sidebarToggle.checked = false;
             }
         });
-    });
-    
-    // Close sidebar when clicking outside (on mobile)
-    document.addEventListener('click', function(event) {
-        if (window.innerWidth < 1024 && drawer && !drawer.contains(event.target) && !drawerToggle.contains(event.target)) {
-            if (!drawer.classList.contains('-translate-x-full')) {
-                drawer.classList.add('-translate-x-full');
-            }
-        }
     });
 });
 
-// Dropdown menu toggle
+// Dropdown menu toggle for user menu
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownToggle = document.querySelector('[data-dropdown-toggle="dropdown-user"]');
+    const dropdownMenu = document.getElementById('dropdown-user');
+    
+    if (dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('hidden');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    }
+});
 document.addEventListener('DOMContentLoaded', function() {
     const dropdownToggle = document.querySelector('[data-dropdown-toggle="dropdown-user"]');
     const dropdownMenu = document.getElementById('dropdown-user');
