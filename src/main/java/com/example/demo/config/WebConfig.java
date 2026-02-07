@@ -12,11 +12,11 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Serve static files from the external storage directory
         String storagePath = Paths.get("storage").toAbsolutePath().toUri().toString();
-        
+
         registry.addResourceHandler("/storage/**")
                 .addResourceLocations(storagePath)
                 .setCachePeriod(3600);
-        
+
         // Keep the default static resource handler
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/")
